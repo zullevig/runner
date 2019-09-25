@@ -12,39 +12,18 @@ public func routes(_ router: Router) throws {
         return "Hello, world!"
     }
     
-    // MARK: - API Examples
-    
+    // MARK: - API with Controller Examples
+    let testModelAPIController = TestModelAPIController()
     // API fetch all request example
-    router.get("testmodel") { request -> Future<[TestModel]> in
-        let models = TestModel.query(on: request).all()
-        return models
-    }
-
+    router.get("testmodel", use: testModelAPIController.list)
     // API fetch item by ID request example
-    router.get("testmodel", Int.parameter) { request -> Future<TestModel> in
-        let modelID: Int = try request.parameters.next(Int.self)
-        let model = TestModel.find(modelID, on: request).unwrap(or: NotFound())
-        return model
-    }
-
+    router.get("testmodel", Int.parameter, use: testModelAPIController.getModel)
     // API create item request example
-    router.post("testmodel") { request -> Future<TestModel> in
-        let model = try request.content.decode(TestModel.self)
-        return model.create(on: request)
-    }
-    
+    router.post("testmodel", use: testModelAPIController.create)    
     // API update item request example
-    router.post("testmodel", "update") { request -> Future<TestModel> in
-        let model = try request.content.decode(TestModel.self)
-        return model.update(on: request)
-    }
-
+    router.post("testmodel", "update", use: testModelAPIController.update)
     // API delete item request example
-    router.delete("testmodel", Int.parameter) { request -> Future<TestModel> in
-        let modelID: Int = try request.parameters.next(Int.self)
-        let model = TestModel.find(modelID, on: request).unwrap(or: NotFound())
-        return model.delete(on: request)
-    }
+    router.delete("testmodel", Int.parameter, use: testModelAPIController.delete)
 
     // MARK: - Web Interface Examples
 
