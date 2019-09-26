@@ -138,6 +138,15 @@ final class Object: Codable {
     var workItemOutputID: Int?
     var name: String
     var uniqueIdentifier: UUID
+    
+    init(_ name: String, _ uuid: UUID = UUID()) {
+        self.name = name
+        self.uniqueIdentifier = uuid
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id, workItemIngredientID, workItemOutputID, name, uniqueIdentifier
+    }
 }
 
 final class CueItem: Codable {
@@ -175,17 +184,17 @@ final class WorkItem: Codable {
 //        case id, jobID, workItemID, dependencies, description, detailedInstruction, ingredients, outputs, cueItems, duration, state
 //    }
     
-//    init(description: String, detailedInstruction: String, dependencies: [WorkItem] = []) {
-//        self.description = description
-//        self.detailedInstruction = detailedInstruction
+    init(description: String, detailedInstruction: String, dependencies: [WorkItem] = []) {
+        self.description = description
+        self.detailedInstruction = detailedInstruction
 //        self.dependencies = dependencies
 //        self.ingredients = []
 //        self.outputs = []
 //        self.cueItems = []
-//        self.duration = .completionConditionMet
+        self.duration = .completionConditionMet
 //        let unmet = dependencies.filter { $0.state != .completed }
 //        self.state = unmet.isEmpty ? .ready : .notReady
-//    }
+    }
     
 //    var dependenciesMet: Bool {
 //        let unmet = dependencies.filter { $0.state != .completed }
