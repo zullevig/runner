@@ -13,7 +13,7 @@ public func routes(_ router: Router) throws {
     }
     
     // MARK: - API with Controller Examples
-    let testModelAPIController = TestModelAPIController()
+    let testModelAPIController = TestModelController()
     // API fetch all request example
     router.get("testmodel", use: testModelAPIController.list)
     // API fetch item by ID request example

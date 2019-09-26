@@ -1,4 +1,0 @@
-module CCryptoOpenSSL {
-    umbrella "/Users/zach/Development/Clash/Vapor/runner/.build/checkouts/crypto/Sources/CCryptoOpenSSL/include"
-    export *
-}
