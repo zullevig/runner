@@ -97,8 +97,6 @@ indirect enum WorkItemDuration: Codable {
         case .completionConditionMet:
             try container.encode("completionConditionMet", forKey: .type)
             try container.encode(0, forKey: .value)
-        @unknown default:
-            preconditionFailure("NOPE")
         }
     }
 
