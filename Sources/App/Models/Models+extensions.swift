@@ -40,18 +40,11 @@ extension Job {
     }
 }
 
-// -------------
+extension WorkItemEvent: MySQLModel {}
+extension WorkItemEvent: Content {}
+extension WorkItemEvent: Migration {}
 
-extension SimpleWorkItem: MySQLModel {}
-extension SimpleWorkItem: Content {}
-extension SimpleWorkItem: Migration {}
-extension SimpleWorkItem: Parameter {}
+extension JobEvent: MySQLModel {}
+extension JobEvent: Content {}
+extension JobEvent: Migration {}
 
-extension SimpleWorkItem {
-    var outputs: Children<SimpleWorkItem, Object> {
-        return children(\.workItemOutputID)
-    }
-    var cueItems: Children<SimpleWorkItem, CueItem> {
-        return children(\.workItemID)
-    }
-}

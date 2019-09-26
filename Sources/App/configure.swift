@@ -42,8 +42,13 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     migrations.add(model: TestModel.self, database: .mysql)
     migrations.add(model: Object.self, database: .mysql)
     migrations.add(model: CueItem.self, database: .mysql)
-    migrations.add(model: SimpleWorkItem.self, database: .mysql)
     migrations.add(model: WorkItem.self, database: .mysql)
     migrations.add(model: Job.self, database: .mysql)
+    migrations.add(model: WorkItemEvent.self, database: .mysql)
+    migrations.add(model: JobEvent.self, database: .mysql)
     services.register(migrations)
+    
+//    let jsonData = try JSONEncoder().encode(WorkItemDuration.hardMaximumTime(30))
+//    let json = String(data: jsonData, encoding: .utf8)
+//    print(json)
 }

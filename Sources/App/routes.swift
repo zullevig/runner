@@ -5,72 +5,58 @@ public func routes(_ router: Router) throws {
     
     // MARK: - Object API with Controller
     let objectController = ObjectController()
-    // API fetch all request example
     router.get("object", use: objectController.list)
-    // API fetch item by ID request example
     router.get("object", Int.parameter, use: objectController.get)
-    // API create item request example
     router.post("object", use: objectController.create)
-    // API update item request example
     router.post("object", "update", use: objectController.update)
-    // API delete item request example
     router.delete("object", Int.parameter, use: objectController.delete)
     
     // MARK: - CueItem API with Controller
     let cueItemController = CueItemController()
-    // API fetch all request example
     router.get("cueitem", use: cueItemController.list)
-    // API fetch item by ID request example
     router.get("cueitem", Int.parameter, use: cueItemController.get)
-    // API create item request example
     router.post("cueitem", use: cueItemController.create)
-    // API update item request example
     router.post("cueitem", "update", use: cueItemController.update)
-    // API delete item request example
     router.delete("cueitem", Int.parameter, use: cueItemController.delete)
     
     // MARK: - WorkItem API with Controller
-    let simpleWorkItemController = SimpleWorkItemController()
-    // API fetch all request example
-    router.get("simpleworkitem", use: simpleWorkItemController.list)
-    // API fetch item by ID request example
-    router.get("simpleworkitem", Int.parameter, use: simpleWorkItemController.get)
-    
-    router.get("simpleworkitem", Int.parameter, "outputs", use: simpleWorkItemController.listOutputs)
-    
-    // API create item request example
-    router.post("simpleworkitem", use: simpleWorkItemController.create)
-    // API update item request example
-    router.post("simpleworkitem", "update", use: simpleWorkItemController.update)
-    // API delete item request example
-    router.delete("simpleworkitem", Int.parameter, use: simpleWorkItemController.delete)
-    
-    // MARK: - WorkItem API with Controller
     let workItemController = WorkItemController()
-    // API fetch all request example
     router.get("workitem", use: workItemController.list)
-    // API fetch item by ID request example
     router.get("workitem", Int.parameter, use: workItemController.get)
-    // API create item request example
+    router.get("workitem", Int.parameter, "dependencies", use: workItemController.listDependencies)
+    router.get("workitem", Int.parameter, "outputs", use: workItemController.listOutputs)
+    router.get("workitem", Int.parameter, "ingredients", use: workItemController.listIngredients)
+    router.get("workitem", Int.parameter, "cueitems", use: workItemController.listCueItems)
     router.post("workitem", use: workItemController.create)
-    // API update item request example
     router.post("workitem", "update", use: workItemController.update)
-    // API delete item request example
     router.delete("workitem", Int.parameter, use: workItemController.delete)
     
     // MARK: - Job API with Controller
     let jobController = JobController()
-    // API fetch all request example
     router.get("job", use: jobController.list)
-    // API fetch item by ID request example
     router.get("job", Int.parameter, use: jobController.get)
-    // API create item request example
-    router.post("job", use: jobController.create)
-    // API update item request example
+    router.get("job", Int.parameter, "workitems", use: jobController.listWorkItems)
+        router.post("job", use: jobController.create)
     router.post("job", "update", use: jobController.update)
-    // API delete item request example
     router.delete("job", Int.parameter, use: jobController.delete)
 
+    // MARK: - WorkItemEvent API with Controller
+    let workItemEventController = WorkItemEventController()
+    router.get("workitem-event", use: workItemEventController.list)
+    router.get("workitem-event", Int.parameter, use: workItemEventController.get)
+    router.post("workitem-event", use: workItemEventController.create)
+    router.post("workitem-event", "update", use: workItemEventController.update)
+    router.delete("workitem-event", Int.parameter, use: workItemEventController.delete)
+    
+    // MARK: - JobEvent API with Controller
+    let jobEventController = JobEventController()
+    router.get("job-event", use: jobEventController.list)
+    router.get("job-event", Int.parameter, use: jobEventController.get)
+    router.post("job-event", use: jobEventController.create)
+    router.post("job-event", "update", use: jobEventController.update)
+    router.delete("job-event", Int.parameter, use: jobEventController.delete)
+    
+    
     // Basic "It works" example
     router.get { request in
         return "It works!"

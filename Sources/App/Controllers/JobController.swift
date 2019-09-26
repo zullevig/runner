@@ -68,49 +68,6 @@ final class CueItemController {
     }
 }
 
-final class SimpleWorkItemController {
-    // API fetch all request example
-    func list(_ request: Request) throws -> Future<[SimpleWorkItem]> {
-        let models = SimpleWorkItem.query(on: request).all()
-        return models
-    }
-    
-    // API fetch item by ID request example
-    func get(_ request: Request) throws -> Future<SimpleWorkItem> {
-        let modelID: Int = try request.parameters.next(Int.self)
-        let model = SimpleWorkItem.find(modelID, on: request).unwrap(or: NotFound())
-        return model
-    }
-    
-    func listOutputs(_ request: Request) throws -> Future<[Object]> {
-        let workItemID: Int = try request.parameters.next(Int.self)
-        return SimpleWorkItem.find(workItemID, on: request).flatMap(to: [Object].self)  { workItem in
-            guard let unwrappedWorkItem = workItem else { throw Abort.init(HTTPStatus.notFound) }
-            let outputs = try unwrappedWorkItem.outputs.query(on: request).all()
-            return outputs
-        }
-    }
-
-    // API create item request example
-    func create(_ request: Request) throws -> Future<SimpleWorkItem> {
-        let model = try request.content.decode(SimpleWorkItem.self)
-        return model.create(on: request)
-    }
-    
-    // API update item request example
-    func update(_ request: Request) throws -> Future<SimpleWorkItem> {
-        let model = try request.content.decode(SimpleWorkItem.self)
-        return model.update(on: request)
-    }
-    
-    // API delete item request example
-    func delete(_ request: Request) throws -> Future<SimpleWorkItem> {
-        let modelID: Int = try request.parameters.next(Int.self)
-        let model = SimpleWorkItem.find(modelID, on: request).unwrap(or: NotFound())
-        return model.delete(on: request)
-    }
-}
-
 final class WorkItemController {
     // API fetch all request example
     func list(_ request: Request) throws -> Future<[WorkItem]> {
@@ -223,3 +180,72 @@ final class JobController {
         return model.delete(on: request)
     }
 }
+
+final class WorkItemEventController {
+    // API fetch all request example
+    func list(_ request: Request) throws -> Future<[WorkItemEvent]> {
+        let models = WorkItemEvent.query(on: request).all()
+        return models
+    }
+    
+    // API fetch item by ID request example
+    func get(_ request: Request) throws -> Future<WorkItemEvent> {
+        let modelID: Int = try request.parameters.next(Int.self)
+        let model = WorkItemEvent.find(modelID, on: request).unwrap(or: NotFound())
+        return model
+    }
+    
+    // API create item request example
+    func create(_ request: Request) throws -> Future<WorkItemEvent> {
+        let model = try request.content.decode(WorkItemEvent.self)
+        return model.create(on: request)
+    }
+    
+    // API update item request example
+    func update(_ request: Request) throws -> Future<WorkItemEvent> {
+        let model = try request.content.decode(WorkItemEvent.self)
+        return model.update(on: request)
+    }
+    
+    // API delete item request example
+    func delete(_ request: Request) throws -> Future<WorkItemEvent> {
+        let modelID: Int = try request.parameters.next(Int.self)
+        let model = WorkItemEvent.find(modelID, on: request).unwrap(or: NotFound())
+        return model.delete(on: request)
+    }
+}
+
+final class JobEventController {
+    // API fetch all request example
+    func list(_ request: Request) throws -> Future<[JobEvent]> {
+        let models = JobEvent.query(on: request).all()
+        return models
+    }
+    
+    // API fetch item by ID request example
+    func get(_ request: Request) throws -> Future<JobEvent> {
+        let modelID: Int = try request.parameters.next(Int.self)
+        let model = JobEvent.find(modelID, on: request).unwrap(or: NotFound())
+        return model
+    }
+    
+    // API create item request example
+    func create(_ request: Request) throws -> Future<JobEvent> {
+        let model = try request.content.decode(JobEvent.self)
+        return model.create(on: request)
+    }
+    
+    // API update item request example
+    func update(_ request: Request) throws -> Future<JobEvent> {
+        let model = try request.content.decode(JobEvent.self)
+        return model.update(on: request)
+    }
+    
+    // API delete item request example
+    func delete(_ request: Request) throws -> Future<JobEvent> {
+        let modelID: Int = try request.parameters.next(Int.self)
+        let model = JobEvent.find(modelID, on: request).unwrap(or: NotFound())
+        return model.delete(on: request)
+    }
+}
+
