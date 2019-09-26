@@ -164,6 +164,10 @@ final class SimpleWorkItem: Codable {
     var jobID: Int?
     var workItemID: Int?
     var description: String
+    
+    init() {
+        self.description = ""
+    }
 }
 
 final class WorkItem: Codable {
