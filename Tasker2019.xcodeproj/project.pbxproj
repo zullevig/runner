@@ -35,6 +35,11 @@
 		921968E2233C39D400C7A47D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921968E1233C39D400C7A47D /* Models.swift */; };
 		921968E4233C3A4300C7A47D /* JobController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921968E3233C3A4300C7A47D /* JobController.swift */; };
 		921968E6233C3C2900C7A47D /* Models+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921968E5233C3C2900C7A47D /* Models+extensions.swift */; };
+		92196962233D45D600C7A47D /* WorkItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92196961233D45D600C7A47D /* WorkItemController.swift */; };
+		92196964233D461700C7A47D /* WorkItemEventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92196963233D461700C7A47D /* WorkItemEventController.swift */; };
+		92196966233D464200C7A47D /* JobEventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92196965233D464200C7A47D /* JobEventController.swift */; };
+		92196968233D467000C7A47D /* CueItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92196967233D467000C7A47D /* CueItemController.swift */; };
+		9219696A233D469900C7A47D /* ObjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92196969233D469900C7A47D /* ObjectController.swift */; };
 		OBJ_1000 /* Routing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Routing::Routing::Product" /* Routing.framework */; };
 		OBJ_1001 /* Multipart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Multipart::Multipart::Product" /* Multipart.framework */; };
 		OBJ_1002 /* HTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HTTP::HTTP::Product" /* HTTP.framework */; };
@@ -5411,6 +5416,11 @@
 		921968E1233C39D400C7A47D /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		921968E3233C3A4300C7A47D /* JobController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobController.swift; sourceTree = "<group>"; };
 		921968E5233C3C2900C7A47D /* Models+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+extensions.swift"; sourceTree = "<group>"; };
+		92196961233D45D600C7A47D /* WorkItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkItemController.swift; sourceTree = "<group>"; };
+		92196963233D461700C7A47D /* WorkItemEventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkItemEventController.swift; sourceTree = "<group>"; };
+		92196965233D464200C7A47D /* JobEventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobEventController.swift; sourceTree = "<group>"; };
+		92196967233D467000C7A47D /* CueItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueItemController.swift; sourceTree = "<group>"; };
+		92196969233D469900C7A47D /* ObjectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectController.swift; sourceTree = "<group>"; };
 		"Console::Command::Product" /* Command.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Command.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Console::Console::Product" /* Console.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Console.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Console::Logging::Product" /* Logging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Logging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -9345,6 +9355,11 @@
 			children = (
 				OBJ_10 /* TestModelController.swift */,
 				921968E3233C3A4300C7A47D /* JobController.swift */,
+				92196965233D464200C7A47D /* JobEventController.swift */,
+				92196961233D45D600C7A47D /* WorkItemController.swift */,
+				92196963233D461700C7A47D /* WorkItemEventController.swift */,
+				92196967233D467000C7A47D /* CueItemController.swift */,
+				92196969233D469900C7A47D /* ObjectController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -12469,13 +12484,18 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_988 /* TestModelController.swift in Sources */,
+				92196964233D461700C7A47D /* WorkItemEventController.swift in Sources */,
 				OBJ_989 /* TestModel.swift in Sources */,
 				OBJ_990 /* app.swift in Sources */,
 				OBJ_991 /* boot.swift in Sources */,
 				OBJ_992 /* configure.swift in Sources */,
+				92196968233D467000C7A47D /* CueItemController.swift in Sources */,
+				92196962233D45D600C7A47D /* WorkItemController.swift in Sources */,
 				921968E6233C3C2900C7A47D /* Models+extensions.swift in Sources */,
+				92196966233D464200C7A47D /* JobEventController.swift in Sources */,
 				921968E4233C3A4300C7A47D /* JobController.swift in Sources */,
 				OBJ_993 /* routes.swift in Sources */,
+				9219696A233D469900C7A47D /* ObjectController.swift in Sources */,
 				921968E2233C39D400C7A47D /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
