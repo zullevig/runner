@@ -30,6 +30,22 @@ public func routes(_ router: Router) throws {
     router.delete("cueitem", Int.parameter, use: cueItemController.delete)
     
     // MARK: - WorkItem API with Controller
+    let simpleWorkItemController = SimpleWorkItemController()
+    // API fetch all request example
+    router.get("simpleworkitem", use: simpleWorkItemController.list)
+    // API fetch item by ID request example
+    router.get("simpleworkitem", Int.parameter, use: simpleWorkItemController.get)
+    
+    router.get("simpleworkitem", Int.parameter, "outputs", use: simpleWorkItemController.listOutputs)
+    
+    // API create item request example
+    router.post("simpleworkitem", use: simpleWorkItemController.create)
+    // API update item request example
+    router.post("simpleworkitem", "update", use: simpleWorkItemController.update)
+    // API delete item request example
+    router.delete("simpleworkitem", Int.parameter, use: simpleWorkItemController.delete)
+    
+    // MARK: - WorkItem API with Controller
     let workItemController = WorkItemController()
     // API fetch all request example
     router.get("workitem", use: workItemController.list)

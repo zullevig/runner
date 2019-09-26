@@ -49,6 +49,8 @@ class WorkStateMachine {
 }
 
 indirect enum WorkItemDuration: Codable {
+    case unknown
+    
     // "rise for one hour"
     // It's okay to let it rise for 50 minutes or even zero if you want lousy bread.
     case softMinimumTime(TimeInterval)
@@ -78,6 +80,8 @@ indirect enum WorkItemDuration: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         switch self {
+        case .unknown:
+            break
         case .softMinimumTime(let val):
             try container.encode("softMinimumTime", forKey: .type)
             try container.encode(val, forKey: .value)
@@ -123,24 +127,17 @@ indirect enum WorkItemDuration: Codable {
             let val2 = try container.decode(WorkItemDuration.self, forKey: .value)
             self = .window(val1, val2)
         default:
-            preconditionFailure("Never meant a thing to me")
+            self = .unknown
         }
     }
 }
 
 final class Object: Codable {
     var id: Int?
-    var workItemID: Int?
+    var workItemIngredientID: Int?
+    var workItemOutputID: Int?
     var name: String
     var uniqueIdentifier: UUID
-    init(_ name: String, _ uuid: UUID = UUID()) {
-        self.name = name
-        self.uniqueIdentifier = uuid
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case id, workItemID, name, uniqueIdentifier
-    }
 }
 
 final class CueItem: Codable {
@@ -153,79 +150,82 @@ final class CueItem: Codable {
     }
 }
 
+final class SimpleWorkItem: Codable {
+    var id: Int?
+    var jobID: Int?
+    var workItemID: Int?
+    var description: String
+}
+
 final class WorkItem: Codable {
     var id: Int?
     var jobID: Int?
     var workItemID: Int?
-    var dependencies: [WorkItem]
+//    var dependencies: [WorkItem]
     var description: String
     var detailedInstruction: String
-    var ingredients: [Object]
-    var outputs: [Object]
-    var cueItems: [CueItem]
+//    var ingredients: [Object]
+//    var outputs: [Object]
+//    var cueItems: [CueItem]
     
     var duration: WorkItemDuration
-    var state: WorkState
+//    var state: WorkState
     
-    enum CodingKeys: String, CodingKey {
-        case id, jobID, workItemID, dependencies, description, detailedInstruction, ingredients, outputs, cueItems, duration, state
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case id, jobID, workItemID, dependencies, description, detailedInstruction, ingredients, outputs, cueItems, duration, state
+//    }
     
-    init(description: String, detailedInstruction: String, dependencies: [WorkItem] = []) {
-        self.description = description
-        self.detailedInstruction = detailedInstruction
-        self.dependencies = dependencies
-        self.ingredients = []
-        self.outputs = []
-        self.cueItems = []
-        self.duration = .completionConditionMet
-        let unmet = dependencies.filter { $0.state != .completed }
-        self.state = unmet.isEmpty ? .ready : .notReady
-    }
+//    init(description: String, detailedInstruction: String, dependencies: [WorkItem] = []) {
+//        self.description = description
+//        self.detailedInstruction = detailedInstruction
+//        self.dependencies = dependencies
+//        self.ingredients = []
+//        self.outputs = []
+//        self.cueItems = []
+//        self.duration = .completionConditionMet
+//        let unmet = dependencies.filter { $0.state != .completed }
+//        self.state = unmet.isEmpty ? .ready : .notReady
+//    }
     
-    var dependenciesMet: Bool {
-        let unmet = dependencies.filter { $0.state != .completed }
-        return unmet.isEmpty
-    }
+//    var dependenciesMet: Bool {
+//        let unmet = dependencies.filter { $0.state != .completed }
+//        return unmet.isEmpty
+//    }
     
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(jobID, forKey: .jobID)
-        try container.encode(workItemID, forKey: .workItemID)
-        try container.encode(dependencies, forKey: .dependencies)
-        try container.encode(description, forKey: .description)
-        try container.encode(detailedInstruction, forKey: .detailedInstruction)
-        try container.encode(ingredients, forKey: .ingredients)
-        try container.encode(outputs, forKey: .outputs)
-        try container.encode(cueItems, forKey: .cueItems)
-        try container.encode(duration, forKey: .duration)
-    }
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(id, forKey: .id)
+//        try container.encode(jobID, forKey: .jobID)
+//        try container.encode(workItemID, forKey: .workItemID)
+////        try container.encode(dependencies, forKey: .dependencies)
+//        try container.encode(description, forKey: .description)
+//        try container.encode(detailedInstruction, forKey: .detailedInstruction)
+////        try container.encode(ingredients, forKey: .ingredients)
+////        try container.encode(outputs, forKey: .outputs)
+////        try container.encode(cueItems, forKey: .cueItems)
+//        try container.encode(duration, forKey: .duration)
+//    }
     
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(Int?.self, forKey: .id)
-        jobID = try container.decode(Int?.self, forKey: .jobID)
-        workItemID = try container.decode(Int?.self, forKey: .workItemID)
-        dependencies = try container.decode([WorkItem].self, forKey: .dependencies)
-        description = try container.decode(String.self, forKey: .description)
-        detailedInstruction = try container.decode(String.self, forKey: .detailedInstruction)
-        ingredients = try container.decode([Object].self, forKey: .ingredients)
-        outputs = try container.decode([Object].self, forKey: .outputs)
-        cueItems = try container.decode([CueItem].self, forKey: .ingredients)
-        duration = try container.decode(WorkItemDuration.self, forKey: .duration)
-        let unmet = dependencies.filter { $0.state != .completed }
-        self.state = unmet.isEmpty ? .ready : .notReady
-    }
+//    required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        id = try container.decode(Int?.self, forKey: .id)
+//        jobID = try container.decode(Int?.self, forKey: .jobID)
+//        workItemID = try container.decode(Int?.self, forKey: .workItemID)
+////        dependencies = try container.decode([WorkItem].self, forKey: .dependencies)
+//        description = try container.decode(String.self, forKey: .description)
+//        detailedInstruction = try container.decode(String.self, forKey: .detailedInstruction)
+////        ingredients = try container.decode([Object].self, forKey: .ingredients)
+////        outputs = try container.decode([Object].self, forKey: .outputs)
+////        cueItems = try container.decode([CueItem].self, forKey: .ingredients)
+//        duration = try container.decode(WorkItemDuration.self, forKey: .duration)
+////        let unmet = dependencies.filter { $0.state != .completed }
+////        self.state = unmet.isEmpty ? .ready : .notReady
+//    }
 }
 
 struct Job: Codable {
     var id: Int?
     var description: String
     var detailedInstruction: String
-    var workItems: [WorkItem]
-
-    enum CodingKeys: String, CodingKey {
-        case id, description, detailedInstruction, workItems
-    }
+//    var workItems: [WorkItem]
 }

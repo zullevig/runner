@@ -4,6 +4,7 @@ import FluentMySQL
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
+    
     // Register providers first
     try services.register(FluentMySQLProvider())
     try services.register(LeafProvider())
@@ -41,7 +42,8 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     migrations.add(model: TestModel.self, database: .mysql)
     migrations.add(model: Object.self, database: .mysql)
     migrations.add(model: CueItem.self, database: .mysql)
-//    migrations.add(model: WorkItem.self, database: .mysql)
-//    migrations.add(model: Job.self, database: .mysql)
+    migrations.add(model: SimpleWorkItem.self, database: .mysql)
+    migrations.add(model: WorkItem.self, database: .mysql)
+    migrations.add(model: Job.self, database: .mysql)
     services.register(migrations)
 }
