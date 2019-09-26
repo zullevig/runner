@@ -132,6 +132,7 @@ indirect enum WorkItemDuration: Codable {
 
 final class Object: Codable {
     var id: Int?
+    var workItemID: Int?
     var name: String
     var uniqueIdentifier: UUID
     init(_ name: String, _ uuid: UUID = UUID()) {
@@ -140,21 +141,24 @@ final class Object: Codable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, name, uniqueIdentifier
+        case id, workItemID, name, uniqueIdentifier
     }
 }
 
 final class CueItem: Codable {
     var id: Int?
+    var workItemID: Int?
     var threeDModel: Data?
 
     enum CodingKeys: String, CodingKey {
-        case id, threeDModel
+        case id, workItemID, threeDModel
     }
 }
 
 final class WorkItem: Codable {
     var id: Int?
+    var jobID: Int?
+    var workItemID: Int?
     var dependencies: [WorkItem]
     var description: String
     var detailedInstruction: String
@@ -166,7 +170,7 @@ final class WorkItem: Codable {
     var state: WorkState
     
     enum CodingKeys: String, CodingKey {
-        case id, dependencies, description, detailedInstruction, ingredients, outputs, cueItems, duration, state
+        case id, jobID, workItemID, dependencies, description, detailedInstruction, ingredients, outputs, cueItems, duration, state
     }
     
     init(description: String, detailedInstruction: String, dependencies: [WorkItem] = []) {
@@ -189,6 +193,8 @@ final class WorkItem: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
+        try container.encode(jobID, forKey: .jobID)
+        try container.encode(workItemID, forKey: .workItemID)
         try container.encode(dependencies, forKey: .dependencies)
         try container.encode(description, forKey: .description)
         try container.encode(detailedInstruction, forKey: .detailedInstruction)
@@ -201,6 +207,8 @@ final class WorkItem: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int?.self, forKey: .id)
+        jobID = try container.decode(Int?.self, forKey: .jobID)
+        workItemID = try container.decode(Int?.self, forKey: .workItemID)
         dependencies = try container.decode([WorkItem].self, forKey: .dependencies)
         description = try container.decode(String.self, forKey: .description)
         detailedInstruction = try container.decode(String.self, forKey: .detailedInstruction)
