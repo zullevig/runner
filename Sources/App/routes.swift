@@ -48,6 +48,10 @@ public func routes(_ router: Router) throws {
     router.post("workitem-event", "update", use: workItemEventController.update)
     router.delete("workitem-event", Int.parameter, use: workItemEventController.delete)
     
+    let eventWebController = EventWebController()
+    router.get("workitem-event-view", use: eventWebController.list)
+    
+    
     // MARK: - JobEvent API with Controller
     let jobEventController = JobEventController()
     router.get("job-event", use: jobEventController.list)

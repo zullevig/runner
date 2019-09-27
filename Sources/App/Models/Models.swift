@@ -154,7 +154,7 @@ final class WorkItem: Codable {
     var state: WorkState = .unknown
     
     enum CodingKeys: String, CodingKey {
-        case id, jobID, workItemID, description, detailedInstruction, completionCondition, duration
+        case id, jobID, workItemID, description, detailedInstruction, completionCondition, duration, state
     }
     
     init(description: String, detailedInstruction: String, dependencies: [WorkItem] = [], completionCondition: CompletionCondition = .default) {

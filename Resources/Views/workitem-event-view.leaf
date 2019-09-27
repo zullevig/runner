@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Model</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container">
+<h1 class="mt-3"> Work Item Events </h1>
+<div>timestamp : WorkItem ID : Completion Details </div>
+<hr>
+#for(item in workitem-events) {
+    <p class="mb-0">
+    #(item.timestamp): #(item.workItemId) : #(item.completionDetails)
+    </p>
+}
+
+</body>
+</html>
